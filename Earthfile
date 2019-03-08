@@ -1,19 +1,19 @@
-VERSION 0.6
+VERSION 0.7
 
 # This allows one to change the running Ruby version with:
 #
 # `earthly --allow-privileged +test --EARTHLY_RUBY_VERSION=3`
-ARG EARTHLY_RUBY_VERSION=2.2
+ARG --global EARTHLY_RUBY_VERSION=2.7
 
 # This allows one to change the running Rails version with:
 #
 # `earthly --allow-privileged +test --EARTHLY_RAILS_VERSION=7`
-ARG EARTHLY_RAILS_VERSION=4.2.11.3
+ARG --global EARTHLY_RAILS_VERSION=5.2.8.1
 
 # This allows one to change the running Rails version with:
 #
 # `earthly --allow-privileged +test --EARTHLY_DEVISE_VERSION=4.8.1`
-ARG EARTHLY_DEVISE_VERSION=3.4.0
+ARG --global EARTHLY_DEVISE_VERSION=4.9.3
 
 FROM ruby:$EARTHLY_RUBY_VERSION
 WORKDIR /gem
@@ -37,22 +37,30 @@ deps:
     SAVE ARTIFACT /gem/Gemfile.lock Gemfile.lock
 
 dev:
+    ENV EARTHLY_DEVISE_VERSION=$EARTHLY_DEVISE_VERSION
+    ENV EARTHLY_RAILS_VERSION=$EARTHLY_RAILS_VERSION
+    ENV EARTHLY_RUBY_VERSION=$EARTHLY_RUBY_VERSION
+
     RUN apt update \
         && apt install --yes \
                        --no-install-recommends \
-                       git
+                       git \
+        && useradd -ms /bin/bash rubydev \
+        && chown -R rubydev:rubydev /gem
 
-    COPY +deps/bundler /usr/local/bundle
-    COPY +deps/Gemfile /gem/Gemfile
-    COPY +deps/Gemfile.lock /gem/Gemfile.lock
+    COPY --chown rubydev:rubydev +deps/bundler /usr/local/bundle
+    COPY --chown rubydev:rubydev +deps/Gemfile /gem/Gemfile
+    COPY --chown rubydev:rubydev +deps/Gemfile.lock /gem/Gemfile.lock
 
-    COPY *.gemspec /gem
-    COPY Rakefile /gem
+    COPY --chown rubydev:rubydev *.gemspec /gem
+    COPY --chown rubydev:rubydev Rakefile /gem
 
-    COPY app/ /gem/app/
-    COPY config/ /gem/config/
-    COPY lib/ /gem/lib/
-    COPY test/ /gem/test/
+    COPY --chown rubydev:rubydev app/ /gem/app/
+    COPY --chown rubydev:rubydev config/ /gem/config/
+    COPY --chown rubydev:rubydev lib/ /gem/lib/
+    COPY --chown rubydev:rubydev test/ /gem/test/
+
+    USER rubydev
 
     ENTRYPOINT ["bundle", "exec"]
     CMD ["rake"]
@@ -70,7 +78,31 @@ test:
     COPY docker-compose-earthly.yml ./
 
     WITH DOCKER --load pharmony/devise_google_authenticator:latest=+dev
-        RUN docker-compose -f docker-compose-earthly.yml run --rm gem
+        RUN set -e \
+            && echo 0 > exit_code \
+            && (docker-compose -f docker-compose-earthly.yml run \
+                --rm gem \
+                || echo $? > exit_code)
+    END
+
+    SAVE ARTIFACT exit_code AS LOCAL exit_code
+
+    IF [ "$(cat exit_code)" != "0" ]
+        SAVE ARTIFACT ./tmp/capybara/* AS LOCAL ./tmp/capybara/
+    END
+
+#
+# This target runs rubocop static code analyzer.
+#
+# Use the following command in order to run the tests suite:
+# earthly --allow-privileged +rubocop
+rubocop:
+    FROM earthly/dind:alpine
+
+    COPY docker-compose-earthly.yml ./
+
+    WITH DOCKER --load pharmony/devise_google_authenticator:latest=+dev
+        RUN docker-compose -f docker-compose-earthly.yml run --rm gem rubocop
     END
 
 #
@@ -88,10 +120,10 @@ gem:
     ARG GEM_CREDENTIALS
     ARG RUBYGEMS_OTP
 
-    COPY .git/ /gem/
-    COPY CHANGELOG.md /gem/
-    COPY LICENSE /gem/
-    COPY README.md /gem/
+    COPY --chown rubydev:rubydev .git/ /gem/
+    COPY --chown rubydev:rubydev CHANGELOG.md /gem/
+    COPY --chown rubydev:rubydev LICENSE /gem/
+    COPY --chown rubydev:rubydev README.md /gem/
 
     RUN gem build devise_google_authenticator.gemspec \
         && mkdir ~/.gem \

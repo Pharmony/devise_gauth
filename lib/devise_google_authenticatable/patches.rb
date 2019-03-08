@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DeviseGoogleAuthenticator
   module Patches
     autoload :DisplayQR, 'devise_google_authenticatable/patches/display_qr'

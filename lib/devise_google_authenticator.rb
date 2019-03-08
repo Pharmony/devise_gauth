@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_record/connection_adapters/abstract/schema_definitions'
 require 'active_support/core_ext/integer'
 require 'active_support/core_ext/string'
@@ -16,7 +18,11 @@ module Devise # :nodoc:
   @@ga_remembertime = 1.month
 
   mattr_accessor :ga_appname
-  @@ga_appname = Rails.application.class.parent_name
+  @@ga_appname = if Rails.version < '6'
+                   Rails.application.class.parent_name
+                 else
+                   Rails.application.class.module_parent_name
+                 end
 
   mattr_accessor :ga_bypass_signup
   @@ga_bypass_signup = false

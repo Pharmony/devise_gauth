@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DeviseGoogleAuthenticator
   # add schema helper for migrations
   module Schema
@@ -21,7 +23,7 @@ module DeviseGoogleAuthenticator
     def gauth_secret
       apply_devise_schema :gauth_secret, String
     end
-    
+
     def gauth_enabled
       apply_devise_schema :gauth_enabled, Integer, { default: 0 }
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RailsApp::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -34,5 +36,4 @@ RailsApp::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
-
 end

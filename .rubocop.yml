@@ -1,0 +1,13 @@
+require:
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - "**/*.erb"
+  NewCops: enable
+  TargetRubyVersion: 3.0
+
+Naming/RescuedExceptionsVariableName:
+  PreferredName: error
+Style/Documentation:
+  Enabled: false

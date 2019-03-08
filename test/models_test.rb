@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ModelsTest < ActiveSupport::TestCase
@@ -30,9 +32,9 @@ class ModelsTest < ActiveSupport::TestCase
 
   test 'should have a new value for ga_appname' do
     old_ga_appname = User.ga_appname
-    User.ga_appname = "test.app"
+    User.ga_appname = 'test.app'
 
-    assert_equal "test.app", User.ga_appname
+    assert_equal 'test.app', User.ga_appname
 
     User.ga_appname = old_ga_appname
   end
@@ -56,7 +58,12 @@ class ModelsTest < ActiveSupport::TestCase
   end
 
   test 'google_authenticatable attributes' do
-    assert_equal 'f', User.new.gauth_enabled
+    if Rails.version >= '5.2'
+      assert_equal '0', User.new.gauth_enabled
+    else
+      assert_equal 'f', User.new.gauth_enabled
+    end
+
     assert_nil User.new.gauth_tmp
     assert_nil User.new.gauth_tmp_datetime
   end

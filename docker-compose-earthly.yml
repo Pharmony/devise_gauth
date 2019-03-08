@@ -8,3 +8,5 @@ services:
       - EARTHLY_RAILS_VERSION=${EARTHLY_RAILS_VERSION}
       - EARTHLY_RUBY_VERSION=${EARTHLY_RUBY_VERSION}
     image: pharmony/devise_google_authenticator:latest
+    volumes:
+      - ./tmp/:/gem/test/rails_app/tmp/

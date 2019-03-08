@@ -1,10 +1,11 @@
-class DeviseCreateUsers < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class DeviseCreateUsers < ActiverecordMigrationKlass
   def change
     create_table(:users) do |t|
-
       ## Database authenticatable
-      t.string :email,              :null => false, :default => ""
-      t.string :encrypted_password, :null => false, :default => ""
+      t.string :email,              null: false, default: ""
+      t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
       t.string   :reset_password_token
@@ -14,7 +15,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.datetime :remember_created_at
 
       ## Trackable
-      t.integer  :sign_in_count, :default => 0
+      t.integer  :sign_in_count, default: 0
       t.datetime :current_sign_in_at
       t.datetime :last_sign_in_at
       t.string   :current_sign_in_ip
@@ -30,7 +31,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## Lockable
-      # t.integer  :failed_attempts, :default => 0 # Only if lock strategy is :failed_attempts
+      # t.integer  :failed_attempts, default: 0 # Only if lock strategy is :failed_attempts
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
@@ -38,7 +39,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.string :authentication_token
 
       ## This is the old migration stuff
-      #t.database_authenticatable :null => false
+      #t.database_authenticatable null: false
       #t.recoverable
       #t.rememberable
       #t.trackable
@@ -46,7 +47,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       # t.encryptable
       # t.confirmable
-      # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
+      # t.lockable lock_strategy: :failed_attempts, unlock_strategy: :both
       # t.token_authenticatable
 
       if Rails.version < '5'
@@ -56,11 +57,10 @@ class DeviseCreateUsers < ActiveRecord::Migration
       end
     end
 
-    add_index :users, :email,                :unique => true
-    add_index :users, :reset_password_token, :unique => true
-    # add_index :users, :confirmation_token,   :unique => true
-    # add_index :users, :unlock_token,         :unique => true
-    # add_index :users, :authentication_token, :unique => true
+    add_index :users, :email,                unique: true
+    add_index :users, :reset_password_token, unique: true
+    # add_index :users, :confirmation_token,   unique: true
+    # add_index :users, :unlock_token,         unique: true
+    # add_index :users, :authentication_token, unique: true
   end
-
 end

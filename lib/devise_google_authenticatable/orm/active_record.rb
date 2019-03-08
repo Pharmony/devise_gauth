@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DeviseGoogleAuthenticator
   module Orm
     # This module contains handle schema (migrations):

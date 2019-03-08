@@ -2,7 +2,7 @@
 
 This is a (devise)[https://github.com/plataformatec/devise] extension to allow your app to utilise (Google Authenticator)[http://code.google.com/p/google-authenticator/] for Time-based One Time Passwords (TOTP).
 
-The current version of this gem support Rails 4.
+The current version of this gem support Rails 4.x, 5.x and 6.x.
 
 ## Installation
 
@@ -15,29 +15,7 @@ gem 'devise_google_authenticator', '0.3.16'
 
 Don't forget to "bundle install"
 
-### Devise Installation (In case you haven't done it)
-
-Before you can setup Devise Google Authenticator you need to setup Devise first, you need to do the following (but refer to https://github.com/plataformatec/devise for more information)
-
-Install Devise:
-
-```bash
-rails g devise:install
-```
-
-Setup the User or Admin model
-
-```bash
-rails g devise MODEL
-```
-
-Configure your app for authorisation, edit your Controller and add this before_filter:
-
-```ruby
-before_action :authenticate_user!
-```
-
-Make sure your "root" route is configured in config/routes.rb
+Before you can setup Devise Google Authenticator you need to [setup Devise first](https://github.com/heartcombo/devise#getting-started).
 
 ### Automatic Installation (Lets assume this is a bare bones app)
 
@@ -64,13 +42,13 @@ rake db:migrate
 After the above steps have been performed, you'll need to generate secrets for each user:
 
 ```ruby
- User.where(:gauth_secret => nil).find_each do |user|
+ User.where(gauth_secret: nil).find_each do |user|
   user.send(:assign_auth_secret)
   user.save!
  end
 ```
 
-By default, users won't need to perform two-factor authentication (gauth_enabled='f'). By visiting /MODEL/displayqr (eg: /users/displayqr)
+By default, users won't need to perform two-factor authentication (gauth_enabled='0'). By visiting /MODEL/displayqr (eg: /users/displayqr)
 and submitting the form, two-factor authentication will then be turned on (gauth_enabled=1) and required for subsequent logins.
 
 ## Configuration Options
@@ -106,10 +84,32 @@ The install generator also installs an english copy of a Devise Google Authentic
 
 ## Testing
 
-The minimal supported versions of Ruby/Rails/Devise is of this fork :
- * Ruby 2.2
- * Rails 4
- * Devise 3.5.10
+You can use [Docker](https://www.docker.com/) to build & run tests. To make it
+even more easier this project uses [Earthly](https://earthly.dev/) so that you
+can build the project's docker image with:
+
+```
+earthly +dev
+```
+
+Then you can run the tests using [Docker Compose](https://docs.docker.com/compose/):
+
+```
+docker compose run --rm gem
+```
+
+Or you can run the tests like on the CI using Earthly
+(This reduces random failures between the CI and you environment):
+
+```
+earthly --allow-privileged +test
+```
+
+And in the case you'd like to test a different version of Ruby/Rails/Devise:
+
+```
+earthly --allow-privileged +test --EARTHLY_RUBY_VERSION=2.5 --EARTHLY_RAILS_VERSION=5.2.8.1 --EARTHLY_DEVISE_VERSION=4.8.1
+```
 
 ## Thanks (and unknown contributors)
 

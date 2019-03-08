@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rotp'
 require 'devise_google_authenticatable/hooks/totp_authenticatable'
 
-module Devise # :nodoc:
-  module Models # :nodoc:
+module Devise
+  module Models
     module GoogleAuthenticatable
-      def self.included(base) # :nodoc:
+      def self.included(base)
         base.extend ClassMethods
 
         base.class_eval do
@@ -18,7 +20,7 @@ module Devise # :nodoc:
         end
       end
 
-      module InstanceMethods # :nodoc:
+      module InstanceMethods
         # Is the TOTP Authentication enabled
         def with_totp_authentication?
           gauth_enabled.to_i != 0
@@ -29,12 +31,12 @@ module Devise # :nodoc:
         end
 
         def set_gauth_enabled(param)
-          update_attributes(gauth_enabled: param)
+          update(gauth_enabled: param)
         end
 
         def assign_tmp
-          update_attributes(gauth_tmp: ROTP::Base32.random_base32(32),
-                            gauth_tmp_datetime: Time.now)
+          update(gauth_tmp: ROTP::Base32.random_base32(32),
+                 gauth_tmp_datetime: Time.now)
           gauth_tmp
         end
 
@@ -87,7 +89,7 @@ module Devise # :nodoc:
         end
       end
 
-      module ClassMethods # :nodoc:
+      module ClassMethods
         def find_by_gauth_tmp(gauth_tmp)
           where(gauth_tmp: gauth_tmp).first
         end

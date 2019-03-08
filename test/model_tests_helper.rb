@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActiveSupport::TestCase
   # Helpers for creating new users
   #

@@ -1,14 +1,20 @@
+# frozen_string_literal: true
+
 module DeviseGoogleAuthenticator
-  module Views # :nodoc:
-    module Helpers # :nodoc:
+  module Views
+    module Helpers
       def google_authenticator_qrcode(user, qualifier=nil, issuer=nil)
         username = username_from_email(user.email)
-        app = user.class.ga_appname || Rails.application.class.parent_name
+        app = user.class.ga_appname || if Rails.version < '6'
+                                         Rails.application.class.parent_name
+                                       else
+                                         Rails.application.class.module_parent_name
+                                       end
         data = "otpauth://totp/#{otpauth_user(username, app, qualifier)}?secret=#{user.gauth_secret}"
-        data << "&issuer=#{issuer}" if !issuer.nil?
+        data += "&issuer=#{issuer}" unless issuer.nil?
         data = Rack::Utils.escape(data)
         url = "https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl=#{data}"
-        return image_tag(url, :alt => 'Google Authenticator QRCode')
+        image_tag(url, alt: 'Google Authenticator QRCode')
       end
 
       def otpauth_user(username, app, qualifier=nil)
