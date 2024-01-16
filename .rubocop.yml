@@ -1,13 +1,12 @@
-require:
-  - rubocop-rspec
-
 AllCops:
-  Exclude:
-    - "**/*.erb"
   NewCops: enable
   TargetRubyVersion: 3.0
 
+Layout/LineLength:
+  Max: 120
+
 Naming/RescuedExceptionsVariableName:
   PreferredName: error
+
 Style/Documentation:
   Enabled: false

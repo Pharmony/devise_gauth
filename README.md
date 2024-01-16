@@ -1,6 +1,6 @@
 # Devise Google Authenticator
 
-This is a (devise)[https://github.com/plataformatec/devise] extension to allow your app to utilise (Google Authenticator)[http://code.google.com/p/google-authenticator/] for Time-based One Time Passwords (TOTP).
+This is a fork of the (devise)[https://github.com/plataformatec/devise] extension to allow your app to utilise (Google Authenticator)[http://code.google.com/p/google-authenticator/] for Time-based One Time Passwords (TOTP).
 
 The current version of this gem support Rails 4.x, 5.x and 6.x.
 
@@ -10,7 +10,7 @@ Add the gem to your Gemfile (don't forget devise too):
 
 ```ruby
 gem 'devise'
-gem 'devise_google_authenticator', '0.3.16'
+gem 'devise_gauth', '0.3.16'
 ```
 
 Don't forget to "bundle install"
@@ -128,7 +128,7 @@ This extension would not exist without the following other projects and associat
 * Sylvain Utard https://github.com/redox
 
 
-## Contributing to devise_google_authenticator
+## Contributing to devise_gauth
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it

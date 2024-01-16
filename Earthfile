@@ -25,6 +25,7 @@ deps:
                        build-essential \
                        git
 
+    COPY lib/devise_google_authenticatable/version.rb lib/devise_google_authenticatable/version.rb
     COPY Gemfile /gem/Gemfile
     COPY *.gemspec /gem
 
@@ -65,7 +66,7 @@ dev:
     ENTRYPOINT ["bundle", "exec"]
     CMD ["rake"]
 
-    SAVE IMAGE pharmony/devise_google_authenticator:latest
+    SAVE IMAGE pharmony/devise_gauth:latest
 
 #
 # This target runs the test suite.
@@ -77,7 +78,7 @@ test:
 
     COPY docker-compose-earthly.yml ./
 
-    WITH DOCKER --load pharmony/devise_google_authenticator:latest=+dev
+    WITH DOCKER --load pharmony/devise_gauth:latest=+dev
         RUN set -e \
             && echo 0 > exit_code \
             && (docker-compose -f docker-compose-earthly.yml run \
@@ -101,7 +102,7 @@ rubocop:
 
     COPY docker-compose-earthly.yml ./
 
-    WITH DOCKER --load pharmony/devise_google_authenticator:latest=+dev
+    WITH DOCKER --load pharmony/devise_gauth:latest=+dev
         RUN docker-compose -f docker-compose-earthly.yml run --rm gem rubocop
     END
 
@@ -122,14 +123,14 @@ gem:
 
     COPY --chown rubydev:rubydev .git/ /gem/
     COPY --chown rubydev:rubydev CHANGELOG.md /gem/
-    COPY --chown rubydev:rubydev LICENSE /gem/
+    COPY --chown rubydev:rubydev LICENSE.txt /gem/
     COPY --chown rubydev:rubydev README.md /gem/
 
-    RUN gem build devise_google_authenticator.gemspec \
+    RUN gem build devise_gauth.gemspec \
         && mkdir ~/.gem \
         && echo "$GEM_CREDENTIALS" > ~/.gem/credentials \
         && cat ~/.gem/credentials \
         && chmod 600 ~/.gem/credentials \
-        && gem push --otp $RUBYGEMS_OTP devise_google_authenticator-*.gem
+        && gem push --otp $RUBYGEMS_OTP devise_gauth-*.gem
 
-    SAVE ARTIFACT devise_google_authenticator-*.gem AS LOCAL ./devise_google_authenticator.gem
+    SAVE ARTIFACT devise_gauth-*.gem AS LOCAL ./devise_gauth.gem

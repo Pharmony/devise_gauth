@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+# Specify your gem's dependencies in gemtest.gemspec
 gemspec
 
 rails_min_version = ENV.fetch('EARTHLY_RAILS_VERSION', '3.2.22.5')
