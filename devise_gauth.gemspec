@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'railties', "~> #{rails_min_version}",
                               "< #{rails_max_version}"
   spec.add_runtime_dependency 'rotp', '~> 1.6'
+  spec.add_runtime_dependency 'rqrcode', '~> 2.1.2'
 end

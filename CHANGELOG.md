@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Renames the gem as `devise_gauth`
+- Uses Ruby to generate QRCode images instead of using Google APIs
 
 ### Fixed
 - Rails 5.x and 6.x compatiblites
