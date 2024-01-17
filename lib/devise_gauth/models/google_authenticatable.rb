@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rotp'
-require 'devise_google_authenticatable/hooks/totp_authenticatable'
+require 'devise_gauth/hooks/totp_authenticatable'
 
 module Devise
   module Models

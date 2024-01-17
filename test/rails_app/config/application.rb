@@ -14,7 +14,7 @@ end
 PARENT_MODEL_CLASS = DEVISE_ORM == :active_record ? ActiveRecord::Base : Object
 
 require 'devise'
-require 'devise_google_authenticator'
+require 'devise_gauth'
 
 ActiverecordMigrationKlass = if Rails.version >= '5.1'
                                ActiveRecord::Migration[4.2]

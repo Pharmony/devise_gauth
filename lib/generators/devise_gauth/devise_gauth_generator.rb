@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-module DeviseGoogleAuthenticator
+module DeviseGauth
   module Generators
-    class DeviseGoogleAuthenticatorGenerator < Rails::Generators::NamedBase
-      namespace 'devise_google_authenticator'
+    class DeviseGauthGenerator < Rails::Generators::NamedBase
+      namespace 'devise_gauth'
 
       desc 'Add :google_authenticatable directive in the given model, plus accessors. Also generate migration for ActiveRecord'
 
-      def inject_devise_google_authenticator_content
+      def inject_devise_gauth_content
         path = File.join('app', 'models', "#{file_path}.rb")
 
         return unless File.exist?(path)

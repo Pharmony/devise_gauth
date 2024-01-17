@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module DeviseGoogleAuthenticator
+module DeviseGauth
   module Patches
-    autoload :DisplayQR, 'devise_google_authenticatable/patches/display_qr'
+    autoload :DisplayQR, 'devise_gauth/patches/display_qr'
 
     class << self
       def apply

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-module DeviseGoogleAuthenticator
+module DeviseGauth
   module Generators
     # Install Generator
     class InstallGenerator < Rails::Generators::Base
-      source_root File.expand_path('../../templates', __FILE__)
+      source_root File.expand_path('../templates', __dir__)
 
       desc 'Install the devise google authenticator extension'
 
@@ -27,7 +27,7 @@ module DeviseGoogleAuthenticator
       end
 
       def copy_locale
-        copy_file '../../../config/locales/en.yml', 'config/locales/devise.google_authenticator.en.yml'
+        copy_file '../../../config/locales/en.yml', 'config/locales/devise.gauth.en.yml'
       end
     end
   end

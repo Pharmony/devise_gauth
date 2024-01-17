@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DeviseGoogleAuthenticatorAddTo<%= table_name.camelize %> < ActiveRecord::Migration
+class DeviseGauthAddTo<%= table_name.camelize %> < ActiveRecord::Migration
   def self.up
     change_table :<%= table_name %> do |t|
       t.string  :gauth_secret

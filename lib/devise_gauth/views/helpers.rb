@@ -3,7 +3,7 @@
 require 'rqrcode'
 require 'base64'
 
-module DeviseGoogleAuthenticator
+module DeviseGauth
   module Views
     module Helpers
       def build_qrcode_data_from(username, app, gauth_secret, qualifier = nil, issuer = nil)

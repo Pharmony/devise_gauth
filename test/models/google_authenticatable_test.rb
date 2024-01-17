@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require 'model_tests_helper'
 
@@ -61,10 +63,11 @@ class GoogleAuthenticatableTest < ActiveSupport::TestCase
   end
 
   test 'requiring token after remembertime' do
-    u = User.find(1)
-    assert u.require_token?(nil)
-    assert u.require_token?(u.email + "," + 2.months.ago.to_i.to_s)
-    assert !u.require_token?(u.email + "," + 1.day.ago.to_i.to_s)
-    assert u.require_token?("testxx@test.com" + "," + 1.day.ago.to_i.to_s)
+    user = User.find(1)
+
+    assert user.require_token?(nil)
+    assert user.require_token?("#{user.email},#{2.months.ago.to_i}")
+    assert !user.require_token?("#{user.email},#{1.day.ago.to_i}")
+    assert user.require_token?("testxx@test.com,#{1.day.ago.to_i}")
   end
 end

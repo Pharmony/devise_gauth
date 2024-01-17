@@ -5,7 +5,7 @@ require 'generators/devise/orm_helpers'
 
 module Mongoid
   module Generators
-    class DeviseGoogleAuthenticatorGenerator < Rails::Generators::NamedBase
+    class DeviseGauthGenerator < Rails::Generators::NamedBase
       include Devise::Generators::OrmHelpers
 
       def inject_field_types

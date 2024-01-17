@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'lib/devise_google_authenticatable/version'
+require_relative 'lib/devise_gauth/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'devise_gauth'
-  spec.version = DeviseGoogleAuthenticator::VERSION
+  spec.version = DeviseGauth::VERSION
   spec.authors = ['Pharmony SA']
   spec.email = ['dev@pharmony.eu']
 

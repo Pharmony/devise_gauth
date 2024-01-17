@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DeviseGoogleAuthenticator
+module DeviseGauth
   module Controllers
     module Helpers
       extend ActiveSupport::Concern

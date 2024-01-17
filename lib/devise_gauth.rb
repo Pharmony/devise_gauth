@@ -28,17 +28,18 @@ module Devise # :nodoc:
   @@ga_bypass_signup = false
 end
 
-# a security extension for devise
-module DeviseGoogleAuthenticator
-  autoload :Schema, 'devise_google_authenticatable/schema'
-  autoload :Patches, 'devise_google_authenticatable/patches'
+module DeviseGauth
+  autoload :Schema, 'devise_gauth/schema'
+  autoload :Patches, 'devise_gauth/patches'
 end
 
-require 'devise_google_authenticatable/routes'
-require 'devise_google_authenticatable/rails'
-require 'devise_google_authenticatable/orm/active_record'
-require 'devise_google_authenticatable/controllers/helpers'
-require 'devise_google_authenticatable/views/helpers'
-ActionView::Base.send :include, DeviseGoogleAuthenticator::Views::Helpers
+require 'devise_gauth/routes'
+require 'devise_gauth/rails'
+require 'devise_gauth/orm/active_record'
+require 'devise_gauth/controllers/helpers'
+require 'devise_gauth/views/helpers'
+ActionView::Base.send :include, DeviseGauth::Views::Helpers
 
-Devise.add_module :google_authenticatable, controller: :google_authenticatable, model: 'devise_google_authenticatable/models/google_authenticatable', route: :displayqr
+Devise.add_module :google_authenticatable, controller: :google_authenticatable,
+                                           model: 'devise_gauth/models/google_authenticatable',
+                                           route: :displayqr

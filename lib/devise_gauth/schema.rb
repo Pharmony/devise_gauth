@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DeviseGoogleAuthenticator
+module DeviseGauth
   # add schema helper for migrations
   module Schema
     # Add gauth_secret columns in the resource's database tables

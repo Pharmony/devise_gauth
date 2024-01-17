@@ -34,7 +34,6 @@ class InvitationTest < ActionDispatch::IntegrationTest
 
   test 'a new user should be able to sign in without using their token' do
     create_full_user
-    # User.find_by_email('fulluser@test.com').update(gauth_enabled: 0) # force this off - unsure why sometimes it flicks on possible race condition
 
     visit new_user_session_path
     fill_in 'user_email', with: 'fulluser@test.com'
@@ -44,9 +43,8 @@ class InvitationTest < ActionDispatch::IntegrationTest
   end
 
   test 'a new user should be able to sign in and change their qr code to enabled' do
-    # sign_in_as_user
     create_full_user
-    # User.find_by_email('fulluser@test.com').update(gauth_enabled: 0) # force this off - unsure why sometimes it flicks on possible race condition
+
     visit new_user_session_path
     fill_in 'user_email', with: 'fulluser@test.com'
     fill_in 'user_password', with: '123456'
@@ -65,7 +63,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
 
   test 'a new user should be able to sign in change their qr to enabled and be prompted for their token' do
     create_full_user
-    # User.find_by_email('fulluser@test.com').update(gauth_enabled: 0) # force this off - unsure why sometimes it flicks on possible race condition
+
     visit new_user_session_path
     fill_in 'user_email', with: 'fulluser@test.com'
     fill_in 'user_password', with: '123456'
@@ -90,6 +88,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
 
   test 'fail token authentication' do
     create_and_signin_gauth_user
+
     fill_in 'user_gauth_token', with: '1'
     click_button 'Check Token'
 
@@ -165,5 +164,33 @@ class InvitationTest < ActionDispatch::IntegrationTest
     assert_equal user_checkga_path, current_path
 
     Timecop.return
+  end
+
+  test 'user is prompted for token each time he logs in when ga_remembertime is nil' do
+    old_ga_remembertime_value = Devise.ga_remembertime
+
+    Devise.setup do |config|
+      config.ga_remembertime = nil
+    end
+
+    testuser = create_and_signin_gauth_user
+    fill_in 'user_gauth_token', with: ROTP::TOTP.new(testuser.get_qr).at(Time.now)
+    click_button 'Check Token'
+
+    assert_equal root_path, current_path
+
+    # Logout the user
+    visit destroy_user_session_path
+
+    visit new_user_session_path
+    fill_in 'user_email', with: 'fulluser@test.com'
+    fill_in 'user_password', with: '123456'
+    click_button 'Log in'
+
+    assert_equal user_checkga_path, current_path
+
+    Devise.setup do |config|
+      config.ga_remembertime = old_ga_remembertime_value
+    end
   end
 end

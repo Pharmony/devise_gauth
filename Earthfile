@@ -29,7 +29,7 @@ deps:
                        build-essential \
                        git
 
-    COPY lib/devise_google_authenticatable/version.rb lib/devise_google_authenticatable/version.rb
+    COPY lib/devise_gauth/version.rb lib/devise_gauth/version.rb
     COPY Gemfile /gem/Gemfile
     COPY *.gemspec /gem
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DeviseGoogleAuthenticator::Patches
+module DeviseGauth::Patches
   # patch Registrations controller to display the QR code
   module DisplayQR
     extend ActiveSupport::Concern

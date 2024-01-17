@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require 'devise_google_authenticatable/controllers/helpers'
+require 'devise_gauth/controllers/helpers'
 
 class HelpersTest < ActiveSupport::TestCase
-  include DeviseGoogleAuthenticator::Views::Helpers
+  include DeviseGauth::Views::Helpers
 
   def setup
     @user = User.new(valid_attributes({ email: 'helpers_test@test.com' }))

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DeviseGoogleAuthenticatorAddToUsers < ActiverecordMigrationKlass
+class DeviseGauthAddToUsers < ActiverecordMigrationKlass
   def self.up
     change_table :users do |t|
       t.string  :gauth_secret, :gauth_token
