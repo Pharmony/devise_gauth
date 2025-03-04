@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in gemtest.gemspec
 gemspec
 
+ruby_version = Gem::Version.new(ENV.fetch('EARTHLY_RUBY_VERSION'))
 rails_min_version = ENV.fetch('EARTHLY_RAILS_VERSION')
 rails_max_version = (rails_min_version.split('.').first.to_i + 1).to_s
 
@@ -18,7 +19,12 @@ gem 'capybara-screenshot'
 gem 'database_cleaner-active_record'
 gem 'factory_girl_rails'
 gem 'mocha', '~> 0.13.0'
-gem 'nokogiri', '~> 1.12.0' # Version 1.12.0 fixes error "uninitialized constant Nokogiri::HTML4"
+# With Ruby >= 3.0
+if ruby_version >= Gem::Version.new('3.0.0')
+  gem 'nokogiri', '~> 1.13.0'
+else
+  gem 'nokogiri', '~> 1.12.0'
+end
 gem 'responders'
 gem 'rubocop'
 gem 'shoulda'
@@ -29,4 +35,13 @@ else
 end
 gem 'test-unit'
 gem 'timecop'
+
+# With Ruby >= 3.0
+if ruby_version >= Gem::Version.new('3.0.0')
+  gem 'base64'
+  gem 'bigdecimal'
+  gem 'drb'
+  gem 'mutex_m'
+end
+
 # gem 'debugger'
