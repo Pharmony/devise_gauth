@@ -12,7 +12,7 @@ For more details see the `.github/workflows/ci.yml` file.
 Add the gem to your Gemfile (don't forget devise too):
 
 ```ruby
-gem 'devise_gauth', '0.4.3'
+gem 'devise_gauth', '~> 0.4.4'
 ```
 
 Don't forget to "bundle install"
