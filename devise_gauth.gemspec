@@ -30,9 +30,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   if ENV.fetch('PUBLISHING_GEM', false)
-    spec.add_runtime_dependency 'actionmailer', '>= 4.2', '< 7'
+    spec.add_runtime_dependency 'actionmailer', '>= 4.2', '<= 7.0'
     spec.add_runtime_dependency 'devise'
-    spec.add_runtime_dependency 'railties', '>= 4.2', '< 7'
+    spec.add_runtime_dependency 'railties', '>= 4.2', '<= 7.0'
   else
     devise_version = ENV.fetch('EARTHLY_DEVISE_VERSION')
     rails_min_version = ENV.fetch('EARTHLY_RAILS_VERSION')
