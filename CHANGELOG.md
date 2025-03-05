@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
-## [0.4.4] - 2024-01-17
+## [0.4.5] - 2025-03-05
+### Added
+- Support for Ruby 3.2
+- Support for Rails 7.0
+
+## [0.4.4] - 2025-03-04
 ### Added
 - Support for Ruby 3.1
 
@@ -97,7 +102,8 @@ tidied up some of the code - changed the references to AsteriskLabs
 ## [0.1.0] - 2011-11-21
 initial release, just to push it up, is still very early and requires a bit work
 
-[Unreleased]: https://github.com/pharmony/devise_gauth/compare/v0.4.4...master
+[Unreleased]: https://github.com/pharmony/devise_gauth/compare/v0.4.5...master
+[0.4.5]: https://github.com/pharmony/devise_gauth/compare/v0.4.4...v0.4.5
 [0.4.4]: https://github.com/pharmony/devise_gauth/compare/v0.4.3...v0.4.4
 [0.4.3]: https://github.com/pharmony/devise_gauth/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/pharmony/devise_gauth/compare/v0.4.1...v0.4.2
