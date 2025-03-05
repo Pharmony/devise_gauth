@@ -11,7 +11,7 @@ jobs:
       matrix:
         include:
           #
-          # Rails 4.x branch
+          # Rails 4.x series
           #
           # Rails 4.2 compatible versions
           - ruby: 2.5
@@ -19,7 +19,7 @@ jobs:
             devise: 4.8.1
 
           #
-          # Rails 5.x branch
+          # Rails 5.x series
           #
           # Rails 5.0 compatible versions
           - ruby: 2.5 # We should use 2.4 but Nokogiri requires 2.5
@@ -39,7 +39,7 @@ jobs:
             devise: 4.8.1
 
           #
-          # Rails 6.x branch
+          # Rails 6.x series
           #
           # Rails 6.0 compatible versions
           - ruby: 2.6
@@ -57,6 +57,24 @@ jobs:
           - ruby: 3.1
             rails: 6.1.7.10
             devise: 4.9.4
+
+          #
+          # Rails 7.x series
+          #
+          - ruby: 3.1
+            rails: 7.0.8.7
+            devise: 4.9.4
+          - ruby: 3.2
+            rails: 7.0.8.7
+            devise: 4.9.4
+          # This can't work since the `test/rails_app/` needs to be upgraded
+          # See https://github.com/Pharmony/devise_gauth/issues/12
+          # - ruby: 3.2
+          #   rails: 7.1.5.1
+          #   devise: 4.9.4
+          # - ruby: 3.3
+          #   rails: 7.2.2.1
+          #   devise: 4.9.4
     runs-on: ubuntu-latest
     name: RSpec suite (Ruby ${{ matrix.ruby }}/Rails ${{ matrix.rails }}/Devise ${{ matrix.devise }})
     env:
@@ -67,28 +85,14 @@ jobs:
       EARTHLY_RUBY_VERSION: ${{ matrix.ruby }}
       FORCE_COLOR: 1
     steps:
-    - uses: actions/checkout@v3
-    - name: Put back the git branch into git (Earthly uses it for tagging)
-      run: |
-        branch=""
-        if [ -n "$GITHUB_HEAD_REF" ]; then
-          branch="$GITHUB_HEAD_REF"
-        else
-          branch="${GITHUB_REF##*/}"
-        fi
-        git checkout -b "$branch" || true
+    - uses: earthly/actions-setup@v1
+      with:
+        version: v0.8.0
+    - uses: actions/checkout@v4
     - name: Docker Login
       run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
-    - name: Download latest earthly
-      run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.7.23/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
     - name: Earthly version
       run: earthly --version
     - name: Run build
       run: |
         earthly --ci --allow-privileged --output +test --EARTHLY_RUBY_VERSION=$EARTHLY_RUBY_VERSION --EARTHLY_RAILS_VERSION=$EARTHLY_RAILS_VERSION --EARTHLY_DEVISE_VERSION=$EARTHLY_DEVISE_VERSION
-        if [ -f exit_code ]; then
-          exit $(cat exit_code)
-        else
-          echo "'exit_code' file missing, something failed in previous command"
-          exit 1
-        fi

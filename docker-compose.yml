@@ -1,5 +1,3 @@
-version: '3'
-
 name: devise_gauth
 
 services:

@@ -32,5 +32,16 @@ module RailsApp
       # was deprecated in Rails 6.0 and removed in Rails 6.1
       config.active_record.sqlite3.represent_boolean_as_integer = true
     end
+
+    if Rails.version >= '7.0' && Rails.version < '7.1'
+      # DEPRECATION WARNING: Using legacy connection handling is deprecated.
+      # Please set `legacy_connection_handling` to `false` in your application.
+      config.active_record.legacy_connection_handling = false
+    end
+
+    config.active_support.cache_format_version = 6.1 if Rails.version >= '6.1'
+    config.active_support.cache_format_version = 7.0 if Rails.version >= '7.0'
+    config.active_support.cache_format_version = 7.1 if Rails.version >= '7.1'
+    config.active_support.cache_format_version = 7.2 if Rails.version >= '7.2'
   end
 end
