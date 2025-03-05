@@ -6,18 +6,18 @@ VERSION 0.7
 
 # This allows one to change the running Ruby version with:
 #
-# `earthly --allow-privileged +test --EARTHLY_RUBY_VERSION=3`
-ARG --global EARTHLY_RUBY_VERSION=3.0.6
+# `earthly --allow-privileged +test --EARTHLY_RUBY_VERSION=3.2`
+ARG --global EARTHLY_RUBY_VERSION=3.1.6
 
 # This allows one to change the running Rails version with:
 #
-# `earthly --allow-privileged +test --EARTHLY_RAILS_VERSION=7`
-ARG --global EARTHLY_RAILS_VERSION=6.1.7.6
+# `earthly --allow-privileged +test --EARTHLY_RAILS_VERSION=7.1`
+ARG --global EARTHLY_RAILS_VERSION=7.0.8.7
 
 # This allows one to change the running Rails version with:
 #
 # `earthly --allow-privileged +test --EARTHLY_DEVISE_VERSION=4.8.1`
-ARG --global EARTHLY_DEVISE_VERSION=4.9.3
+ARG --global EARTHLY_DEVISE_VERSION=4.9.4
 
 FROM ruby:$EARTHLY_RUBY_VERSION
 WORKDIR /gem

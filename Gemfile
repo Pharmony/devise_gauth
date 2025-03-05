@@ -21,7 +21,11 @@ gem 'factory_girl_rails'
 gem 'mocha', '~> 0.13.0'
 # With Ruby >= 3.0
 if ruby_version >= Gem::Version.new('3.0.0')
-  gem 'nokogiri', '~> 1.13.0'
+  if Gem::Version.new(rails_min_version) < Gem::Version.new('7.0.0')
+    gem 'nokogiri', '~> 1.13.0'
+  else
+    gem 'nokogiri', '~> 1.15.0'
+  end
 else
   gem 'nokogiri', '~> 1.12.0'
 end
