@@ -7,10 +7,9 @@ gemspec
 
 ruby_version = Gem::Version.new(ENV.fetch('EARTHLY_RUBY_VERSION'))
 rails_min_version = ENV.fetch('EARTHLY_RAILS_VERSION')
-rails_max_version = (rails_min_version.split('.').first.to_i + 1).to_s
 
 # ORMs
-gem 'activerecord', "~> #{rails_min_version}", "< #{rails_max_version}"
+gem 'activerecord', "~> #{rails_min_version}"
 # gem 'bson_ext', '~> 1.3'
 
 # Tests

@@ -11,8 +11,8 @@ ARG --global EARTHLY_RUBY_VERSION=3.1.6
 
 # This allows one to change the running Rails version with:
 #
-# `earthly --allow-privileged +test --EARTHLY_RAILS_VERSION=7.1`
-ARG --global EARTHLY_RAILS_VERSION=7.0.8.7
+# `earthly --allow-privileged +test --EARTHLY_RAILS_VERSION=8.0`
+ARG --global EARTHLY_RAILS_VERSION=7.2.2
 
 # This allows one to change the running Rails version with:
 #
@@ -23,7 +23,10 @@ FROM ruby:$EARTHLY_RUBY_VERSION
 WORKDIR /gem
 
 deps:
-    RUN apt update \
+    RUN echo "deb [trusted=yes] http://archive.debian.org/debian stretch main non-free contrib" > /etc/apt/sources.list \
+        && echo "deb-src [trusted=yes] http://archive.debian.org/debian stretch main non-free contrib" >> /etc/apt/sources.list \
+        && echo "deb [trusted=yes] http://archive.debian.org/debian-security stretch/updates main non-free contrib" >> /etc/apt/sources.list \
+        && apt update \
         && apt install --yes \
                        --no-install-recommends \
                        build-essential \
@@ -46,7 +49,10 @@ dev:
     ENV EARTHLY_RAILS_VERSION=$EARTHLY_RAILS_VERSION
     ENV EARTHLY_RUBY_VERSION=$EARTHLY_RUBY_VERSION
 
-    RUN apt update \
+    RUN echo "deb [trusted=yes] http://archive.debian.org/debian stretch main non-free contrib" > /etc/apt/sources.list \
+        && echo "deb-src [trusted=yes] http://archive.debian.org/debian stretch main non-free contrib" >> /etc/apt/sources.list \
+        && echo "deb [trusted=yes] http://archive.debian.org/debian-security stretch/updates main non-free contrib" >> /etc/apt/sources.list \
+        && apt update \
         && apt install --yes \
                        --no-install-recommends \
                        git \
