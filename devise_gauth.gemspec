@@ -30,19 +30,16 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   if ENV.fetch('PUBLISHING_GEM', false)
-    spec.add_runtime_dependency 'actionmailer', '>= 4.2', '<= 7.0'
+    spec.add_runtime_dependency 'actionmailer', '>= 4.2', '<= 8.0'
     spec.add_runtime_dependency 'devise'
-    spec.add_runtime_dependency 'railties', '>= 4.2', '<= 7.0'
+    spec.add_runtime_dependency 'railties', '>= 4.2', '<= 8.0'
   else
     devise_version = ENV.fetch('EARTHLY_DEVISE_VERSION')
     rails_min_version = ENV.fetch('EARTHLY_RAILS_VERSION')
-    rails_max_version = (rails_min_version.split('.').first.to_i + 1).to_s
 
-    spec.add_runtime_dependency 'actionmailer', "~> #{rails_min_version}",
-                                "< #{rails_max_version}"
+    spec.add_runtime_dependency 'actionmailer', "~> #{rails_min_version}"
     spec.add_runtime_dependency 'devise', "~> #{devise_version}"
-    spec.add_runtime_dependency 'railties', "~> #{rails_min_version}",
-                                "< #{rails_max_version}"
+    spec.add_runtime_dependency 'railties', "~> #{rails_min_version}"
   end
 
   spec.add_runtime_dependency 'rotp', '~> 1.6'

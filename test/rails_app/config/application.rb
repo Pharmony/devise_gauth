@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.expand_path('../boot', __FILE__)
+require File.expand_path('boot', __dir__)
 
 require 'logger'
 require 'action_controller/railtie'
@@ -42,6 +42,6 @@ module RailsApp
     config.active_support.cache_format_version = 6.1 if Rails.version >= '6.1'
     config.active_support.cache_format_version = 7.0 if Rails.version >= '7.0'
     config.active_support.cache_format_version = 7.1 if Rails.version >= '7.1'
-    config.active_support.cache_format_version = 7.2 if Rails.version >= '7.2'
+    config.active_support.cache_format_version = 7.1 if Rails.version >= '7.2'
   end
 end

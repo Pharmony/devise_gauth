@@ -10,7 +10,7 @@ require 'rails_app/config/environment'
 if Gem::Version.new(Devise::VERSION) >= Gem::Version.new('4.2.0')
   # include Devise::Test::ControllerHelpers
 else
-  include Devise::TestHelpers
+  include Devise::TestHelpers # rubocop:disable Style/MixinUsage
 end
 
 # Destroys the existing database file before running the suite to prevent issue
@@ -29,19 +29,21 @@ else
 end
 require 'timecop'
 
-I18n.load_path << File.expand_path('../support/locale/en.yml', __FILE__) if DEVISE_ORM == :mongoid
+I18n.load_path << File.expand_path('support/locale/en.yml', __dir__) if DEVISE_ORM == :mongoid
 
-ActiveSupport::Deprecation.silenced = true
-
-class ActionDispatch::IntegrationTest
-  include Capybara::DSL
+module ActionDispatch
+  class IntegrationTest
+    include Capybara::DSL
+  end
 end
 
-class ActionController::TestCase
-  if Gem::Version.new(Devise::VERSION) >= Gem::Version.new('4.2.0')
-    include Devise::Test::ControllerHelpers
-  else
-    include Devise::TestHelpers
+module ActionController
+  class TestCase
+    if Gem::Version.new(Devise::VERSION) >= Gem::Version.new('4.2.0')
+      include Devise::Test::ControllerHelpers
+    else
+      include Devise::TestHelpers
+    end
   end
 end
 
@@ -59,6 +61,8 @@ module AroundEachTest
   end
 end
 
-class Minitest::Test
-  include AroundEachTest
+module Minitest
+  class Test
+    include AroundEachTest
+  end
 end

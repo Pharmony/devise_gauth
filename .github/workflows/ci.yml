@@ -67,14 +67,12 @@ jobs:
           - ruby: 3.2
             rails: 7.0.8.7
             devise: 4.9.4
-          # This can't work since the `test/rails_app/` needs to be upgraded
-          # See https://github.com/Pharmony/devise_gauth/issues/12
-          # - ruby: 3.2
-          #   rails: 7.1.5.1
-          #   devise: 4.9.4
-          # - ruby: 3.3
-          #   rails: 7.2.2.1
-          #   devise: 4.9.4
+          - ruby: 3.2
+            rails: 7.1.5.1
+            devise: 4.9.4
+          - ruby: 3.3
+            rails: 7.2.2.1
+            devise: 4.9.4
     runs-on: ubuntu-latest
     name: RSpec suite (Ruby ${{ matrix.ruby }}/Rails ${{ matrix.rails }}/Devise ${{ matrix.devise }})
     env:
