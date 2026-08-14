@@ -7,7 +7,7 @@ VERSION 0.7
 # This allows one to change the running Ruby version with:
 #
 # `earthly --allow-privileged +test --EARTHLY_RUBY_VERSION=3.2`
-ARG --global EARTHLY_RUBY_VERSION=3.2.11
+ARG --global EARTHLY_RUBY_VERSION=3.3.12
 
 # This allows one to change the running Rails version with:
 #
