@@ -31,6 +31,9 @@ end
 gem 'responders'
 gem 'rubocop'
 gem 'shoulda'
+# minitest 6 (requires Ruby >= 3.2) is incompatible with Rails 7.2's test runner;
+# pin to 5.x. See https://github.com/minitest/minitest/issues/1045
+gem 'minitest', '< 6'
 if Gem::Version.new(rails_min_version) >= Gem::Version.new('6.0.0')
   gem 'sqlite3', '~> 1.4'
 else
