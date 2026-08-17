@@ -113,6 +113,16 @@ earthly --allow-privileged +test --EARTHLY_RUBY_VERSION=2.5 --EARTHLY_RAILS_VERS
 ```
 _Be careful when switching between Rails versions, don't forget to delete your local Gemfile.lock file in order to avoid gem issues._
 
+## Publishing a new release
+
+1. Update the `CHANGELOG.md` file in order to freeze the current `Unreleased` into a version with a diff link at the botton of the file.
+2. Update the gem version from the `lib/devise_gauth/version.rb` file
+3. Update the **Installation** section from the `README.md` file if needed
+4. Commit the changes using the command `git ci -am "Bumped version v$VERSION"`
+5. Tag the version using the command `git tag -a "v$VERSION" -m "v$VERSION"`
+6. Push both the commit and the tag
+7. Using `earthly` you can publish the gem on Rubygems.org with `earthly +gem --RUBYGEMS_OTP=123456` (See `Earthfile` file for more details)
+
 ## Thanks (and unknown contributors)
 
 This extension would not exist without the following other projects and associated authors (Whom I have turned to for inspiration and definitely have helped contributing by providing awesome Devise extensions. A lot of this code has been refactored from various sources, in particular these - in particular Sergio and Devise_invitable for his excellent unit test code):
