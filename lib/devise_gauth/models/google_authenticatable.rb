@@ -52,7 +52,7 @@ module Devise
             valid_vals << ROTP::TOTP.new(get_qr).at(Time.now.in(30 * cc))
           end
 
-          valid_vals.include?(token.to_i)
+          valid_vals.map(&:to_i).include?(token.to_i)
         end
 
         def require_token?(cookie)

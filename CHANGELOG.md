@@ -5,7 +5,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Support for Ruby 3.4.10
+- `observer` as a test dependency for Ruby 3.4 (it became a bundled, non-default gem; `factory_girl` requires it but does not declare the dependency)
 
+### Changed
+- `rotp` runtime dependency from `~> 1.6` to `~> 2.1`
+- Allowed Ruby 3.4 in `required_ruby_version` when publishing
+- Switched `add_runtime_dependency` to `add_dependency` in the gemspec
+- Set `rubygems_mfa_required` metadata to `true`
+
+### Fixed
+- Token validation with ROTP 2.x, which returns zero-padded strings instead of integers. Tokens are now compared as integers, which is robust across ROTP 1.x/2.x and leading zeros
 
 ## [0.4.6] - 2025-07-23
 ### Added

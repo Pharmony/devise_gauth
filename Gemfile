@@ -48,6 +48,10 @@ if ruby_version >= Gem::Version.new('3.0.0')
   gem 'bigdecimal'
   gem 'drb'
   gem 'mutex_m'
+  # observer became a bundled (non-default) gem in Ruby 3.4; factory_girl requires
+  # it but does not declare the dependency. Add it so the require resolves to the gem.
+  # See https://stdgems.org/observer/
+  gem 'observer'
 end
 
 # gem 'debugger'
