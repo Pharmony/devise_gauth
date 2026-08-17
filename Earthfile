@@ -147,4 +147,4 @@ gem:
     RUN gem build devise_gauth.gemspec
     RUN --secret GEM_HOST_API_KEY gem push --otp $RUBYGEMS_OTP devise_gauth-*.gem
 
-    SAVE ARTIFACT devise_gauth-*.gem AS LOCAL ./devise_gauth.gem
+    SAVE ARTIFACT devise_gauth-*.gem AS LOCAL ./pkg/
