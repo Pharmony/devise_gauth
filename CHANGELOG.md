@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.5.0] - 2026-08-17
 ### Added
 - Support for Ruby 3.4.10
 - `observer` as a test dependency for Ruby 3.4 (it became a bundled, non-default gem; `factory_girl` requires it but does not declare the dependency)
@@ -117,7 +119,8 @@ tidied up some of the code - changed the references to AsteriskLabs
 ## [0.1.0] - 2011-11-21
 initial release, just to push it up, is still very early and requires a bit work
 
-[Unreleased]: https://github.com/pharmony/devise_gauth/compare/v0.4.6...master
+[Unreleased]: https://github.com/pharmony/devise_gauth/compare/v0.5.0...master
+[0.5.0]: https://github.com/pharmony/devise_gauth/compare/v0.4.6...v0.5.0
 [0.4.6]: https://github.com/pharmony/devise_gauth/compare/v0.4.5...v0.4.6
 [0.4.5]: https://github.com/pharmony/devise_gauth/compare/v0.4.4...v0.4.5
 [0.4.4]: https://github.com/pharmony/devise_gauth/compare/v0.4.3...v0.4.4
