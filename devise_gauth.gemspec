@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.license = 'MIT'
 
   spec.required_ruby_version = if ENV.fetch('PUBLISHING_GEM', false)
-                                 ['>= 2.4', '<= 3.4']
+                                 ['>= 2.4', '<= 4.0']
                                else
                                  ">= #{ENV.fetch('EARTHLY_RUBY_VERSION')}"
                                end
