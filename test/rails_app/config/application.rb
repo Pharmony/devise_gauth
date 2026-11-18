@@ -27,7 +27,7 @@ module RailsApp
   class Application < Rails::Application
     # config.filter_parameters << :password
 
-    if Rails.version >= '5.2' && Rails.version <= '6.1'
+    if Rails.version.between?('5.2', '6.1')
       # Method config.active_record.sqlite3.represent_boolean_as_integer
       # was deprecated in Rails 6.0 and removed in Rails 6.1
       config.active_record.sqlite3.represent_boolean_as_integer = true
@@ -39,9 +39,14 @@ module RailsApp
       config.active_record.legacy_connection_handling = false
     end
 
+    # DEPRECATION WARNING: `to_time` will always preserve the receiver
+    # timezone rather than system local time in Rails 8.1. To opt in to the
+    # new behavior, set `config.active_support.to_time_preserves_timezone =
+    # :zone`. Rails 8.1 already defaults to :zone.
+    config.active_support.to_time_preserves_timezone = :zone if Rails.version >= '8.0'
+
     config.active_support.cache_format_version = 6.1 if Rails.version >= '6.1'
     config.active_support.cache_format_version = 7.0 if Rails.version >= '7.0'
     config.active_support.cache_format_version = 7.1 if Rails.version >= '7.1'
-    config.active_support.cache_format_version = 7.1 if Rails.version >= '7.2'
   end
 end
