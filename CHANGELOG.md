@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-11-18
 ### Added
 - Support for Rails 8.0 and 8.1
 
@@ -126,7 +127,9 @@ tidied up some of the code - changed the references to AsteriskLabs
 ## [0.1.0] - 2011-11-21
 initial release, just to push it up, is still very early and requires a bit work
 
-[Unreleased]: https://github.com/pharmony/devise_gauth/compare/v0.5.0...master
+[Unreleased]: https://github.com/pharmony/devise_gauth/compare/v0.6.0...master
+[0.6.0]: https://github.com/pharmony/devise_gauth/compare/v0.5.1...v0.6.0
+[0.5.1]: https://github.com/pharmony/devise_gauth/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/pharmony/devise_gauth/compare/v0.4.6...v0.5.0
 [0.4.6]: https://github.com/pharmony/devise_gauth/compare/v0.4.5...v0.4.6
 [0.4.5]: https://github.com/pharmony/devise_gauth/compare/v0.4.4...v0.4.5
